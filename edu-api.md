@@ -32,4 +32,6 @@ more frequently to fetch records from `SIS`.
 * Then requests are served through an `AWS ALB`. When a request is received first the `AWS DynamoDB` table is checked to see if updates are available for the overnight build (SQLite).
   If there are updates, those data is merged from the data from `SQLite` files and client request is served. A timestamp is used to determine 
   if there are updates to a data element/record (timestamp in `SQLite` for last updated is compared with timestamp in `AWS DynamoDB` table).
+* If a consumer would like to receive large data dump that can't be delivered through the API, a CSV file with pre-defined 
+format will be uploaded into a S3 bucket that can be read through [a S3 pre-signed URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html).
 
