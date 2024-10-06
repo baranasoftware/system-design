@@ -26,6 +26,7 @@ more frequently to fetch records from `SIS`.
   This [guide](https://stackoverflow.com/questions/72319748/what-is-changelog-column-in-oracle-db) describe that process. This integration can further be improved by 
  [using Java](https://docs.oracle.com/en/database/oracle/oracle-database/23/jjdev/calling-Java-from-database-triggers.html#GUID-5C498DEF-0348-484D-AA26-2A88EF348D5C) code sends updates to a `AWS SQS` queue directly.
  That will further improve the realtime updates latency.
+* Real time updates are published to a `AWS SNS` topic and then to a `AWS SQS` queue for scalability (in case there's a burst of update).
 * Real time updates are then persisted into a `AWS DynamoDB` table. 
 * Then requests are served through an `AWS ALB`. When a request is received first the `AWS DynamoDB` table is checked to see if updates are available for the overnight build (SQLite).
   If there are updates, those data is merged from the data from `SQLite` files and client request is served. A timestamp is used to determine 
